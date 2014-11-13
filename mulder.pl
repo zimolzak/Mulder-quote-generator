@@ -1,9 +1,16 @@
 #!/usr/bin/perl -w
+
+# original model:
+
+# I have been with a faith. But that faith was a lie, but even so, is
+# the lie really more believable than my faith in that very lie? Or is
+# it even the truth?
+
 use strict;
 
-my @noun = split(", ", "the truth, a man in power, a lie, an extraterrestrial");
-my @linking = split(", ", "is, has become, will be, is revealed to be");
-my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that");
+my @noun = split(", ", "the truth, a man in power, a lie, an extraterrestrial, the existence of extraterrestrial life, the greatest of lies, my belief, my faith, my singular quest for the truth, my faith in the truth, life on this planet, a vast government conspiracy, this coverup, someone who reveals the truth");
+my @linking = split(", ", "is, has become, will be, is revealed to be, will never be, will never come close to, has hidden, has conspired against, is more believable than, was, is truly, cannot acknowledge");
+my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that, but still, as long as, until");
 
 for (1..20){
     $_ = join("", multi_clause(\@noun, \@conj, \@linking)) . ".\n";
