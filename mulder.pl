@@ -8,49 +8,50 @@
 
 use strict;
 
-my @noun = split(", ", "the truth, a man in power, a lie, an extraterrestrial, the existence of extraterrestrial life, the greatest of lies, my belief, my faith, my singular quest for the truth, my faith in the truth, life on this planet, a vast government conspiracy, this coverup, someone who reveals the truth");
-my @linking = split(", ", "is, has become, will be, is revealed to be, will never be, will never come close to, has hidden, has conspired against, is more believable than, was, is truly, cannot acknowledge");
-my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that, but still, as long as, until");
+my @nouns = split(", ", "the truth, a man in power, a lie, an extraterrestrial, the existence of extraterrestrial life, the greatest of lies, my belief, my faith, my singular quest for the truth, my faith in the truth, life on this planet, a vast government conspiracy, this coverup, someone who reveals the truth, Agent Scully");
+my @verbs = split(", ", "is, has become, will be, is revealed to be, will never be, will never come close to, has hidden, has conspired against, is more believable than, was, is truly, cannot acknowledge, denies, can no longer avoid, will be confronted by, is not, believes in");
+my @conjunctions = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that, but still, as long as, until");
 
 for (1..20){
-    $_ = join("", multi_clause(\@noun, \@conj, \@linking)) . ".\n";
-    s/^(.)(.*)/\U$1\E$2/;
+    $_ = join("", generate_sentence(\@nouns, \@conjunctions, \@verbs))
+	. ".\n";
+    s/^(.)(.*)/\U$1\E$2/; # upper case the first letter
     print;
 }
 
-sub multi_clause {
-    # noun ref, conj ref, link ref = ary
-    my $nr = shift;
-    my @conj = @{shift()};
-    my $lr = shift;
-    my $n = pick_a_num(1,3);
+sub generate_sentence {
+    # A sentence is: Clause-Conjunction-Clause-Conjunction-...
+    my $noun_ref = shift;
+    my $conj_ref = shift;
+    my $verb_ref = shift;
+    my $max_clauses = 3;
+    my $num_clauses = rand_int(1, $max_clauses);
     my @sentence;
-    for(1..$n){
-	push @sentence, clause($nr, $lr);
-	push @sentence, ", ", pick_ary(\@conj), " " if $_ < $n;
+    for(1..$num_clauses){
+	push @sentence, clause($noun_ref, $verb_ref);
+	push @sentence, ", ", rand_element($conj_ref), " "
+	    if $_ < $num_clauses;
     }
     return @sentence;
 }
 
 sub clause {
-    # noun ref, link ref = ary
-    my @noun = @{shift()};
-    my @linking = @{shift()};
-    my @sentence;
-    push @sentence, pick_ary(\@noun), " ";
-    push @sentence, pick_ary(\@linking), " ";
-    push @sentence, pick_ary(\@noun);
-    return @sentence;
+    # A clause is: Noun-Verb-Noun
+    my $noun_ref = shift;
+    my $verb_ref = shift;
+    my @clause;
+    push @clause, rand_element($noun_ref), " ";
+    push @clause, rand_element($verb_ref), " ";
+    push @clause, rand_element($noun_ref);
+    return @clause;
 }
 
-sub pick_ary {
-    # ary ref = element
+sub rand_element {
     my @a = @{shift()};
-    return $a[pick_a_num(0,$#a)];
+    return $a[rand_int(0,$#a)];
 }
 
-sub pick_a_num {
-    # from, to = int
+sub rand_int {
     my $from = shift;
     my $to = shift;
     return int(rand($to + 1 - $from)) + $from;
