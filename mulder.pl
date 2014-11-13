@@ -10,45 +10,9 @@ use strict;
 
 my $Number_Of_Sentences_To_Generate = 20;
 
-my @nouns = split_heredoc(", ", <<EOF);
-
-the truth, a man in power, a lie, an extraterrestrial, the existence
-of extraterrestrial life, the greatest of lies, my belief, my faith,
-my singular quest for the truth, my faith in the truth, life on this
-planet, a vast government conspiracy, this coverup, someone who
-reveals the truth, Agent Scully, my whole life, skepticism, the source
-of my beliefs, all that they have to hide, a force beyond our
-comprehension, our darkest secret, our deepest national shame, an
-ongoing government charade, the plot to conceal the truth, a global
-conspiracy, an experience I cannot explain, this unexplained
-phenomenon, the life I have lived, the abduction of my sister, alien
-intelligence, the plot to create an alien-human hybrid, the continued
-existence of the human race, an unknown virus, a sinister government
-operative, looking to the heavens, the scale of this deception, my
-dream, my last hope
-
-EOF
-
-my @verbs = split_heredoc(", ", <<EOF);
-
-is, has become, will be, is revealed to be, will never be, will never
-come close to, has hidden, has conspired against, is more believable
-than, was, is truly, cannot acknowledge, denies, can no longer avoid,
-will be confronted by, is not, believes in, contradicts, can overcome,
-knows of, seeks to reveal, becomes, is becoming one with, has become
-aware of, can never compare to, endangers, will go on without, has
-always existed with, is nothing but, is a mere shadow of, will come
-full circle to, tells me of, can thwart, is entangled with, exists
-beyond
-
-EOF
-
-my @conjunctions = split_heredoc(", ", <<EOF);
-
-and, but, while, if, so, whereas, even if, even though, although, only
-if, whenever, anywhere that, but still, as long as, until, even as
-
-EOF
+my @nouns = file2array("nouns.txt");
+my @verbs = file2array("verbs.txt");
+my @conjunctions = file2array("conjunctions.txt");
 
 for (1..$Number_Of_Sentences_To_Generate){
     $_ = join("", generate_sentence(\@nouns, \@conjunctions, \@verbs))
@@ -95,11 +59,11 @@ sub rand_int {
     return int(rand($to + 1 - $from)) + $from;
 }
 
-sub split_heredoc {
-    my $pattern = shift;
-    my $text = shift;
-    $text =~s/^\s*//; # remove leading whitespace
-    $text =~s/\s*$//; # remove trailing whitespace
-    $text =~ s/\n/ /g;
-    return split(/$pattern/, $text);
+sub file2array {
+    my $filename = shift;
+    open my $fh, "< $filename" or die "can't open $filename: $!";
+    local $/; # slurp
+    my $content = <$fh>;
+    close $fh;
+    return split("\n", $content);
 }
