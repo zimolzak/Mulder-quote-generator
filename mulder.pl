@@ -24,7 +24,8 @@ conspiracy, an experience I cannot explain, this unexplained
 phenomenon, the life I have lived, the abduction of my sister, alien
 intelligence, the plot to create an alien-human hybrid, the continued
 existence of the human race, an unknown virus, a sinister government
-operative
+operative, looking to the heavens, the scale of this deception, my
+dream, my last hope
 
 EOF
 
@@ -36,14 +37,16 @@ than, was, is truly, cannot acknowledge, denies, can no longer avoid,
 will be confronted by, is not, believes in, contradicts, can overcome,
 knows of, seeks to reveal, becomes, is becoming one with, has become
 aware of, can never compare to, endangers, will go on without, has
-always existed with
+always existed with, is nothing but, is a mere shadow of, will come
+full circle to, tells me of, can thwart, is entangled with, exists
+beyond
 
 EOF
 
 my @conjunctions = split_heredoc(", ", <<EOF);
 
 and, but, while, if, so, whereas, even if, even though, although, only
-if, whenever, anywhere that, but still, as long as, until
+if, whenever, anywhere that, but still, as long as, until, even as
 
 EOF
 
