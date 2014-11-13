@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 use strict;
 
-my @noun = split(", ", "the truth, men in power, lies, extraterrestrials");
+my @noun = split(", ", "the truth, a man in power, a lie, an extraterrestrial");
 my @linking = split(", ", "is, has become, will be, is revealed to be");
 my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that");
 
@@ -10,18 +10,19 @@ my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, 
 my $i;
 while ($i++ < 100){
 
-print join("", multi_clause(\@noun, \@linking)) . ".\n";
+print join("", multi_clause(\@noun, \@conj, \@linking)) . ".\n";
 
 }
 
 sub multi_clause {
     my $nr = shift;
+    my @conj = @{shift()};
     my $lr = shift;
     my $n = pick_a_num(1,3);
     my @sentence;
     for(1..$n){
 	push @sentence, clause($nr, $lr);
-	push @sentence, ", ", "but", " " if $_ < $n;
+	push @sentence, ", ", pick_ary(\@conj), " " if $_ < $n;
     }
     return @sentence;
 }
