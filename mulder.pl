@@ -14,6 +14,15 @@ my @nouns = file2array("nouns.txt");
 my @verbs = file2array("verbs.txt");
 my @conjunctions = file2array("conjunctions.txt");
 
+if (defined(@ARGV)) {
+    while($_ = shift(@ARGV)){
+	if (/--count/) {
+	    print possible_sentences(\@nouns, \@conjunctions, \@verbs);
+	    exit;
+	}
+    }
+}
+
 for (1..$Number_Of_Sentences_To_Generate){
     $_ = join("", generate_sentence(\@nouns, \@conjunctions, \@verbs))
 	. ".\n\n";
@@ -66,4 +75,18 @@ sub file2array {
     my $content = <$fh>;
     close $fh;
     return split("\n", $content);
+}
+
+sub possible_sentences {
+    my @na = @{shift()};
+    my @ca = @{shift()};
+    my @va = @{shift()};
+    my $n = $#na + 1;
+    my $v = $#va + 1;
+    my $c = $#ca + 1;
+
+    return sprintf("%e", ($n ** 6 * $v ** 3 * $c ** 2) +
+		   ($n ** 4 * $v ** 2 * $c) +
+		   ($n ** 2 * $v)
+	) . " possible 1- 2- and 3-clause sentences.\n";
 }
