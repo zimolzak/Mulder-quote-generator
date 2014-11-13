@@ -16,7 +16,15 @@ the truth, a man in power, a lie, an extraterrestrial, the existence
 of extraterrestrial life, the greatest of lies, my belief, my faith,
 my singular quest for the truth, my faith in the truth, life on this
 planet, a vast government conspiracy, this coverup, someone who
-reveals the truth, Agent Scully
+reveals the truth, Agent Scully, my whole life, skepticism, the source
+of my beliefs, all that they have to hide, a force beyond our
+comprehension, our darkest secret, our deepest national shame, an
+ongoing government charade, the plot to conceal the truth, a global
+conspiracy, an experience I cannot explain, this unexplained
+phenomenon, the life I have lived, the abduction of my sister, alien
+intelligence, the plot to create an alien-human hybrid, the continued
+existence of the human race, an unknown virus, a sinister government
+operative
 
 EOF
 
@@ -26,7 +34,9 @@ is, has become, will be, is revealed to be, will never be, will never
 come close to, has hidden, has conspired against, is more believable
 than, was, is truly, cannot acknowledge, denies, can no longer avoid,
 will be confronted by, is not, believes in, contradicts, can overcome,
-knows of
+knows of, seeks to reveal, becomes, is becoming one with, has become
+aware of, can never compare to, endangers, will go on without, has
+always existed with
 
 EOF
 
