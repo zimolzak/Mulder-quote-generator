@@ -5,7 +5,7 @@ my @noun = split(", ", "the truth, a man in power, a lie, an extraterrestrial");
 my @linking = split(", ", "is, has become, will be, is revealed to be");
 my @conj = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that");
 
-for (1..100){
+for (1..20){
     $_ = join("", multi_clause(\@noun, \@conj, \@linking)) . ".\n";
     s/^(.)(.*)/\U$1\E$2/;
     print;
