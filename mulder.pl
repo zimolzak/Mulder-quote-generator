@@ -8,35 +8,38 @@
 
 use strict;
 
-my @nouns = text2array(<<EOF);
+my $Number_Of_Sentences_To_Generate = 20;
+
+my @nouns = split_heredoc(", ", <<EOF);
 
 the truth, a man in power, a lie, an extraterrestrial, the existence
 of extraterrestrial life, the greatest of lies, my belief, my faith,
 my singular quest for the truth, my faith in the truth, life on this
 planet, a vast government conspiracy, this coverup, someone who
-reveals the truth, Agent Scully 
+reveals the truth, Agent Scully
 
 EOF
 
-my @verbs = text2array(<<EOF);
+my @verbs = split_heredoc(", ", <<EOF);
 
 is, has become, will be, is revealed to be, will never be, will never
 come close to, has hidden, has conspired against, is more believable
 than, was, is truly, cannot acknowledge, denies, can no longer avoid,
-will be confronted by, is not, believes in, contradicts
+will be confronted by, is not, believes in, contradicts, can overcome,
+knows of
 
 EOF
 
-my @conjunctions = text2array(<<EOF);
+my @conjunctions = split_heredoc(", ", <<EOF);
 
 and, but, while, if, so, whereas, even if, even though, although, only
 if, whenever, anywhere that, but still, as long as, until
 
 EOF
 
-for (1..20){
+for (1..$Number_Of_Sentences_To_Generate){
     $_ = join("", generate_sentence(\@nouns, \@conjunctions, \@verbs))
-	. ".\n";
+	. ".\n\n";
     s/^(.)(.*)/\U$1\E$2/; # upper case the first letter
     print;
 }
@@ -79,10 +82,11 @@ sub rand_int {
     return int(rand($to + 1 - $from)) + $from;
 }
 
-sub text2array {
+sub split_heredoc {
+    my $pattern = shift;
     my $text = shift;
-    $text =~s/^\s*//;
-    $text =~s/\s*$//;
+    $text =~s/^\s*//; # remove leading whitespace
+    $text =~s/\s*$//; # remove trailing whitespace
     $text =~ s/\n/ /g;
-    return split(/, /, $text);
+    return split(/$pattern/, $text);
 }
