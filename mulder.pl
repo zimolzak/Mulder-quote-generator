@@ -8,9 +8,31 @@
 
 use strict;
 
-my @nouns = split(", ", "the truth, a man in power, a lie, an extraterrestrial, the existence of extraterrestrial life, the greatest of lies, my belief, my faith, my singular quest for the truth, my faith in the truth, life on this planet, a vast government conspiracy, this coverup, someone who reveals the truth, Agent Scully");
-my @verbs = split(", ", "is, has become, will be, is revealed to be, will never be, will never come close to, has hidden, has conspired against, is more believable than, was, is truly, cannot acknowledge, denies, can no longer avoid, will be confronted by, is not, believes in");
-my @conjunctions = split(", ", "and, but, while, if, so, whereas, even if, even though, although, only if, whenever, anywhere that, but still, as long as, until");
+my @nouns = text2array(<<EOF);
+
+the truth, a man in power, a lie, an extraterrestrial, the existence
+of extraterrestrial life, the greatest of lies, my belief, my faith,
+my singular quest for the truth, my faith in the truth, life on this
+planet, a vast government conspiracy, this coverup, someone who
+reveals the truth, Agent Scully 
+
+EOF
+
+my @verbs = text2array(<<EOF);
+
+is, has become, will be, is revealed to be, will never be, will never
+come close to, has hidden, has conspired against, is more believable
+than, was, is truly, cannot acknowledge, denies, can no longer avoid,
+will be confronted by, is not, believes in, contradicts
+
+EOF
+
+my @conjunctions = text2array(<<EOF);
+
+and, but, while, if, so, whereas, even if, even though, although, only
+if, whenever, anywhere that, but still, as long as, until
+
+EOF
 
 for (1..20){
     $_ = join("", generate_sentence(\@nouns, \@conjunctions, \@verbs))
@@ -55,4 +77,12 @@ sub rand_int {
     my $from = shift;
     my $to = shift;
     return int(rand($to + 1 - $from)) + $from;
+}
+
+sub text2array {
+    my $text = shift;
+    $text =~s/^\s*//;
+    $text =~s/\s*$//;
+    $text =~ s/\n/ /g;
+    return split(/, /, $text);
 }
