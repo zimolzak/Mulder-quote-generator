@@ -30,5 +30,6 @@ def generate_sentence(nouns, conjunctions, verbs):
     return sentence
 
 for i in range(Number_Of_Sentences_To_Generate):
-    sentence = ''.join(generate_sentence(nouns, conjunctions, verbs)) + "\n"
-    print sentence.capitalize()
+    sentence = ''.join(generate_sentence(nouns, conjunctions, verbs)) + ".\n"
+    sentence = sentence[0].capitalize() + sentence[1:]
+    print sentence
