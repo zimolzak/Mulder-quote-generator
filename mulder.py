@@ -1,15 +1,12 @@
 #!/usr/bin/env python
-
 import random
-
 Number_Of_Sentences_To_Generate = 20
-
 nouns = open('nouns.txt', 'r').read().splitlines()
 verbs = open('verbs.txt', 'r').read().splitlines()
 conjunctions = open('conjunctions.txt', 'r').read().splitlines()
 
 def clause(nouns, verbs):
-    return ["n ", "v ", "n"]
+    return [random.choice(nouns), " ", random.choice(verbs), " ", random.choice(nouns)]
 
 def generate_sentence(nouns, conjunctions, verbs):
     max_clauses = 3
@@ -22,4 +19,4 @@ def generate_sentence(nouns, conjunctions, verbs):
     return sentence
 
 for i in range(Number_Of_Sentences_To_Generate):
-    print ''.join(generate_sentence(nouns, conjunctions, verbs)) + "\n\n"
+    print (''.join(generate_sentence(nouns, conjunctions, verbs)) + "\n").capitalize()
