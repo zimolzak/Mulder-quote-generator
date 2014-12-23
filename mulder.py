@@ -1,26 +1,25 @@
 #!/usr/bin/env python
 
+import random
+
 Number_Of_Sentences_To_Generate = 20
 
-def file2array(filename):
-    f = open(filename, 'r')
-    a = []
-    for line in f:
-        a.append(line)
-    f.close()
-    return a
+nouns = open('nouns.txt', 'r').read().splitlines()
+verbs = open('verbs.txt', 'r').read().splitlines()
+conjunctions = open('conjunctions.txt', 'r').read().splitlines()
 
-nouns = file2array('nouns.txt')
+def clause(nouns, verbs):
+    return ["n ", "v ", "n"]
 
-print ' '.join(nouns)
+def generate_sentence(nouns, conjunctions, verbs):
+    max_clauses = 3
+    num_clauses = random.randrange(max_clauses) + 1
+    sentence = []
+    for i in range(num_clauses):
+        sentence += clause(nouns, verbs)
+        if i < (num_clauses - 1):
+            sentence += [", ", random.choice(conjunctions), " "]
+    return sentence
 
-# nf = open('nouns.txt', 'r')
-# vf = open('verbs.txt', 'r')
-# cf = open('conjunctions.txt', 'r')
-
-# nf.close()
-
-
-# my @nouns = file2array("nouns.txt");
-# my @verbs = file2array("verbs.txt");
-# my @conjunctions = file2array("conjunctions.txt");
+for i in range(Number_Of_Sentences_To_Generate):
+    print ''.join(generate_sentence(nouns, conjunctions, verbs)) + "\n\n"
