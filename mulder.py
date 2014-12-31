@@ -5,6 +5,7 @@ Number_Of_Sentences_To_Generate = 20
 nouns = open('nouns.txt', 'r').read().splitlines()
 verbs = open('verbs.txt', 'r').read().splitlines()
 conjunctions = open('conjunctions.txt', 'r').read().splitlines()
+Twitter = 0
 
 for arg in sys.argv:
     if arg == '--count':
@@ -16,6 +17,8 @@ for arg in sys.argv:
                  + (n ** 2 * v))
         print '%e possible 1- 2- and 3-clause sentences.' % total
         quit()
+    if arg == '--twitter':
+        Twitter = 1
 
 def generate_sentence(nouns, conjunctions, verbs):
     max_clauses = 3
@@ -29,7 +32,10 @@ def generate_sentence(nouns, conjunctions, verbs):
             sentence += [", ", random.choice(conjunctions), " "]
     return sentence
 
-for i in range(Number_Of_Sentences_To_Generate):
+i = 0
+while i < Number_Of_Sentences_To_Generate:
     sentence = ''.join(generate_sentence(nouns, conjunctions, verbs)) + ".\n"
     sentence = sentence[0].capitalize() + sentence[1:]
-    print sentence
+    if ( (Twitter and len(sentence) < 140) or not Twitter):
+        print sentence
+        i += 1
