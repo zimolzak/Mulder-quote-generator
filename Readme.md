@@ -20,6 +20,8 @@ Example of one of the more comprehensible quotes generated: "My belief
 is revealed to be a lie, even though the existence of extraterrestrial
 life has become the truth."
 
+See `out.txt` in this repository for several more examples.
+
 These people do this better:
 
 * http://www.elsewhere.org/journal/
