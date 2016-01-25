@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 import random
 import sys
-Number_Of_Sentences_To_Generate = 20
+Number_Of_Sentences_To_Generate = 50
 nouns = open('nouns.txt', 'r').read().splitlines()
 verbs = open('verbs.txt', 'r').read().splitlines()
 conjunctions = open('conjunctions.txt', 'r').read().splitlines()
-Twitter = 0
+twitter = False
 
 for arg in sys.argv:
     if arg == '--count':
@@ -18,7 +18,7 @@ for arg in sys.argv:
         print '%e possible 1- 2- and 3-clause sentences.' % total
         quit()
     if arg == '--twitter':
-        Twitter = 1
+        twitter = True
 
 def generate_sentence(nouns, conjunctions, verbs):
     max_clauses = 3
@@ -36,6 +36,8 @@ i = 0
 while i < Number_Of_Sentences_To_Generate:
     sentence = ''.join(generate_sentence(nouns, conjunctions, verbs)) + ".\n"
     sentence = sentence[0].capitalize() + sentence[1:]
-    if ( (Twitter and len(sentence) < 140) or not Twitter):
+    if twitter:
+        sentence = sentence[:-1] + " #thexfiles\n"
+    if ( (twitter and len(sentence) < 140) or not twitter):
         print sentence
         i += 1
