@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 from twython import Twython, TwythonError
 from mulder import generate_clean_sentence
 
-class TwythonTimeoutError(TwythonError):
+class TwythonKnownError(TwythonError):
     def __init__(self, value):
         self.value = value
     def __str__(self):
@@ -32,8 +32,11 @@ class bot:
             #self.autofail(sentence)
         except TwythonError as err:
             e = str(err)
-            if 'Read timed out' in e:
-                raise TwythonTimeoutError(e)
+            if 'Read timed out' in e or 'reset by peer' in e:
+                # here's a new one:
+                # twython.exceptions.TwythonError:
+                # EOF occurred in violation of protocol (_ssl.c:590)
+                raise TwythonKnownError(e)
             else:
                 raise TwythonError(e)
 
@@ -53,19 +56,19 @@ if __name__ == "__main__":
     n_tries = 0
     max_tries = 2
     while True:
-        avg_hours = 1.0
+        avg_hours = 0.5
         sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
         print "tweeting..."
         try:
             n_tries += 1
             twitter.tweet_generated_msg()
-        except TwythonTimeoutError as err:
+        except TwythonKnownError as err:
             print "Try {} of {} failed.\n    [{}]".format(n_tries, max_tries,
                                                           str(err))
             if n_tries < max_tries:
                 sleep_sec = 10
             else:
-                raise TwythonTimeoutError(str(err))
+                raise TwythonKnownError(str(err))
         else:
             print "Done.",
             n_tries = 0
