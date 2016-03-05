@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 import sys
 import time
-from datetime import datetime 
+import random
+from datetime import datetime, timedelta
 from twython import Twython
 from mulder import generate_clean_sentence
 
@@ -12,13 +13,9 @@ class bot:
             self.api.verify_credentials()
         except:
             sys.exit("Authentication Failed")
-        self.last_ran = datetime.now() 
-
-    def tweet_hardcode_msg(self):
-        self.api.update_status(status='A lie will be confronted by someone who reveals the truth. #thexfiles')
 
     def tweet_generated_msg(self):
-        sentence = generate_clean_sentence(True)
+        sentence = generate_clean_sentence(True) # True means Twitter
         print sentence
         self.api.update_status(status = sentence)
 
@@ -38,6 +35,7 @@ if __name__ == "__main__":
     while True:
         print "tweeting..."
         twitter.tweet_generated_msg()
-        print "done"
-        twitter.last_ran = datetime.now()
-        time.sleep(60 * 60) # every hour
+        avg_hours = 0.5
+        sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
+        print "Done. Next tweet approx", datetime.now() + timedelta(seconds=sleep_sec)
+        time.sleep(sleep_sec)
