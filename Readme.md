@@ -10,11 +10,14 @@ was a lie, but even so, is the lie really more believable than my
 faith in that very lie? Or is it even the truth?" Currently can
 produce more than 5.0E+17 unique sentences!
 
+Now with Twitter API hook-up.
+
 Usage:
 
     ./mulder.py
     ./mulder.py --count
     ./mulder.py --twitter
+    python bot.py
 
 Example of one of the more comprehensible quotes generated: "My belief
 is revealed to be a lie, even though the existence of extraterrestrial
@@ -27,3 +30,5 @@ These people do this better:
 * http://www.elsewhere.org/journal/
 
 * http://pdos.csail.mit.edu/scigen/
+
+* https://twitter.com/assortedfiles
