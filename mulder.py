@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import random
 import sys
-Number_Of_Sentences_To_Generate = 50
+Number_Of_Sentences_To_Generate = 200
 nouns = open('nouns.txt', 'r').read().splitlines()
 verbs = open('verbs.txt', 'r').read().splitlines()
 conjunctions = open('conjunctions.txt', 'r').read().splitlines()
