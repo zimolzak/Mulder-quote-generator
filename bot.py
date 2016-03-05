@@ -23,7 +23,7 @@ class bot:
         # and make the year the current one
         timestr = "{0} {1}".format(timestr[:19], datetime.now().year)
         # We now have Sat Nov 09 09:29:55 2013
-        return datetime.strptime(timestr, '%a %b %d %H:%M: %S %Y')
+        return datetime.strptime(timestr, '%a %b %d %H:%M:%S %Y')
 
     def retweet_task(self, screen_name):
         # Retweets any tweets we've not seen 
