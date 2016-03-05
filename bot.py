@@ -39,20 +39,26 @@ class bot:
                 print "Retweeting {0}".format(t['id']) 
                 # self.api.retweet(id = t['id']) # FIXME uncomment later
 
+    def tweet_hardcode_msg(self):
+        self.api.update_status(status='Our darkest secret will come full circle to all that they have to hide. #thexfiles')
+
 if __name__ == "__main__":
 
     keys_tokens = open('keys_tokens.txt', 'r').read().splitlines()
+    # Consumer key & secret, access token & secret,
+    # usually found at https://dev.twitter.com/apps
     c_key = keys_tokens[0]
     c_secret = keys_tokens[1]
     a_token = keys_tokens[2]
     a_token_secret = keys_tokens[3]
 
+    print "login..."
     twitter = bot(c_key, c_secret, a_token, a_token_secret)
+    print "done"
 
-    # Retweet anything new by @LinuxUserMag every 5 minutes
     while True:
-        # Update the time after each retweet_task so we're 
-        # only retweeting new stuff 
-        twitter.retweet_task("LinuxUserMag") 
+        print "tweeting..."
+        twitter.tweet_hardcode_msg()
+        print "done"
         twitter.last_ran = datetime.now()
         time.sleep(5 * 60)
