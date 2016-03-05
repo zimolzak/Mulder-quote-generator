@@ -33,11 +33,15 @@ class bot:
         timeline = self.api.get_user_timeline (screen_name = screen_name)
         # Loop through each tweet and check if it was 
         # posted since we were last called
+        print "first t is", timeline[0] # delete
+        print "len timeline", len(timeline) #del
         for t in timeline:
             tweet_time = bot.timestr_to_datetime (t['created_at'])
             if tweet_time > self.last_ran:
                 print "Retweeting {0}".format(t['id']) 
                 # self.api.retweet(id = t['id']) # FIXME uncomment later
+            else: #del
+                print "none found" #del
 
 if __name__ == "__main__":
 
@@ -56,12 +60,15 @@ if __name__ == "__main__":
     a_token_secret = keys_tokens[3]
 
     # Create an instance of the bot class
+    print "verifying..." #del
     twitter = bot(c_key, c_secret, a_token, a_token_secret)
+    print "success" #del
 
     # Retweet anything new by @LinuxUserMag every 5 minutes
     while True:
         # Update the time after each retweet_task so we're 
         # only retweeting new stuff 
-        twitter.retweet_task("LinuxUserMag") 
+        twitter.retweet_task("LinuxUserMag")
+        print "returned successfully" #del
         twitter.last_ran = datetime.now()
         time.sleep(5 * 60)
