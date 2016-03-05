@@ -15,7 +15,7 @@ class TwythonTimeoutError(TwythonError):
 class bot:
     def __init__(self, c_key, c_secret, a_token, a_token_secret):
         self.api = Twython(c_key, c_secret, a_token, a_token_secret)
-#        self.api.verify_credentials() #fixme
+        self.api.verify_credentials()
 
     def autofail(self, status):
         errors = ["FAKE HTTPSConnectionPool(host='api.twitter.com', " +
@@ -28,8 +28,8 @@ class bot:
         sentence = generate_clean_sentence(True) # True means Twitter
         print sentence
         try: # Split into generic/specific TwythonError. No contingency plan.
-            #self.api.update_status(status = sentence) #fixme
-            self.autofail(sentence)
+            self.api.update_status(status = sentence)
+            #self.autofail(sentence)
         except TwythonError as err:
             e = str(err)
             if 'Read timed out' in e:
