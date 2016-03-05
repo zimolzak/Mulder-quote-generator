@@ -42,20 +42,11 @@ class bot:
 if __name__ == "__main__":
 
     keys_tokens = open('keys_tokens.txt', 'r').read().splitlines()
-    
-    # The consumer keys can be found on your application's Details
-    # page located at https://dev.twitter.com/apps (under "OAuth
-    # settings")
     c_key = keys_tokens[0]
     c_secret = keys_tokens[1]
-
-    # The access tokens can be found on your applications's Details
-    # page located at https://dev.twitter.com/apps (located under
-    # "Your access token")
     a_token = keys_tokens[2]
     a_token_secret = keys_tokens[3]
 
-    # Create an instance of the bot class
     twitter = bot(c_key, c_secret, a_token, a_token_secret)
 
     # Retweet anything new by @LinuxUserMag every 5 minutes
