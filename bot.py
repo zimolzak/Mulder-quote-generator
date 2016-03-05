@@ -15,7 +15,9 @@ class bot:
             sys.exit("Authentication Failed")
 
     def autofail(self, status):
-        raise TwythonError('Boo')
+        big_err = ("FAKE HTTPSConnectionPool(host='api.twitter.com', " +
+                   "port=443): Read timed out. (read timeout=None)")
+        raise TwythonError(big_err)
 
     def tweet_generated_msg(self):
         sentence = generate_clean_sentence(True) # True means Twitter
