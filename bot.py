@@ -35,7 +35,7 @@ if __name__ == "__main__":
     while True:
         print "tweeting..."
         twitter.tweet_generated_msg()
-        avg_hours = 0.5
+        avg_hours = 1.0
         sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
         print "Done. Next tweet approx", datetime.now() + timedelta(seconds=sleep_sec)
         time.sleep(sleep_sec)
