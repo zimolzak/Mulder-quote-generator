@@ -15,10 +15,7 @@ class TwythonTimeoutError(TwythonError):
 class bot:
     def __init__(self, c_key, c_secret, a_token, a_token_secret):
         self.api = Twython(c_key, c_secret, a_token, a_token_secret)
-        try: 
-            self.api.verify_credentials()
-        except:
-            sys.exit("Authentication Failed")
+#        self.api.verify_credentials() #fixme
 
     def autofail(self, status):
         errors = ["FAKE HTTPSConnectionPool(host='api.twitter.com', " +
