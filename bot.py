@@ -15,9 +15,12 @@ class bot:
             sys.exit("Authentication Failed")
 
     def autofail(self, status):
-        big_err = ("FAKE HTTPSConnectionPool(host='api.twitter.com', " +
-                   "port=443): Read timed out. (read timeout=None)")
-        raise TwythonError(big_err)
+        errors = ["FAKE HTTPSConnectionPool(host='api.twitter.com', " +
+                   "port=443): Read timed out. (read timeout=None)",
+                  "FAKE HTTPSConnectionPool(host='api.twitter.com', " +
+                   "port=666): Some other junk. (read timeout=None)"
+                  ]
+        raise TwythonError(random.choice(errors))
 
     def tweet_generated_msg(self):
         sentence = generate_clean_sentence(True) # True means Twitter
@@ -26,7 +29,11 @@ class bot:
             #self.api.update_status(status = sentence)
             self.autofail(sentence)
         except TwythonError as err_msg:
-            print "FAIL\n    " + str(err_msg) + "\n    Not retrying."
+            e = str(err_msg)
+            if 'Read timed out' in e:
+                print "TIMEOUT\n    " + e + "\n    Not retrying."
+            else:
+                print "FAIL\n    " + e + "\n    Not retrying."
 
 if __name__ == "__main__":
     keys_tokens = open('keys_tokens.txt', 'r').read().splitlines()
