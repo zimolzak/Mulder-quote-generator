@@ -20,16 +20,15 @@ class bot:
     def autofail(self, status):
         errors = ["FAKE HTTPSConnectionPool(host='api.twitter.com', " +
                    "port=443): Read timed out. (read timeout=None)",
-                  "FAKE HTTPSConnectionPool(host='api.twitter.com', " +
-                   "port=666): Some other junk. (read timeout=None)"
                   ]
-        raise TwythonError(random.choice(errors))
+        if random.random() > 0.5:
+            raise TwythonError(random.choice(errors))
 
     def tweet_generated_msg(self):
         sentence = generate_clean_sentence(True) # True means Twitter
         print sentence
         try: # Split into generic/specific TwythonError. No contingency plan.
-            #self.api.update_status(status = sentence)
+            #self.api.update_status(status = sentence) #fixme
             self.autofail(sentence)
         except TwythonError as err:
             e = str(err)
