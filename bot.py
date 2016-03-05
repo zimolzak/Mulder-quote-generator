@@ -3,6 +3,7 @@ import sys
 import time
 from datetime import datetime 
 from twython import Twython
+from mulder import generate_clean_sentence
 
 class bot:
     def __init__(self, c_key, c_secret, a_token, a_token_secret):
@@ -16,8 +17,12 @@ class bot:
     def tweet_hardcode_msg(self):
         self.api.update_status(status='A lie will be confronted by someone who reveals the truth. #thexfiles')
 
-if __name__ == "__main__":
+    def tweet_generated_msg(self):
+        sentence = generate_clean_sentence(True)
+        print sentence
+        self.api.update_status(status = sentence)
 
+if __name__ == "__main__":
     keys_tokens = open('keys_tokens.txt', 'r').read().splitlines()
     # Consumer key & secret, access token & secret,
     # usually found at https://dev.twitter.com/apps
@@ -32,7 +37,7 @@ if __name__ == "__main__":
 
     while True:
         print "tweeting..."
-        twitter.tweet_hardcode_msg()
+        twitter.tweet_generated_msg()
         print "done"
         twitter.last_ran = datetime.now()
-        time.sleep(5 * 60)
+        time.sleep(60 * 60) # every hour
