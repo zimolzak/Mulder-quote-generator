@@ -22,7 +22,7 @@ def generate_sentence(nouns, conjunctions, verbs):
 def generate_clean_sentence(twitter_flag):
     ending = ".\n"
     if twitter_flag:
-        ending = ". #thexfiles\n"
+        ending = ". #TheXFiles"
     while True:
         sentence = ''.join(generate_sentence(nouns, conjunctions, verbs)) + ending
         sentence = sentence[0].capitalize() + sentence[1:]
