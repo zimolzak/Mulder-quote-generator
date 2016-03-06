@@ -10,7 +10,7 @@ was a lie, but even so, is the lie really more believable than my
 faith in that very lie? Or is it even the truth?" Currently can
 produce more than 5.0E+17 unique sentences!
 
-Now with Twitter API hook-up.
+Now with Twitter API hook-up. Requires package Twython.
 
 Usage:
 
