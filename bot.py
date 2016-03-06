@@ -17,19 +17,11 @@ class bot:
         self.api = Twython(c_key, c_secret, a_token, a_token_secret)
         self.api.verify_credentials()
 
-    def autofail(self, status):
-        errors = ["FAKE HTTPSConnectionPool(host='api.twitter.com', " +
-                   "port=443): Read timed out. (read timeout=None)",
-                  ]
-        if random.random() > 0.5:
-            raise TwythonError(random.choice(errors))
-
     def tweet_generated_msg(self):
         sentence = generate_clean_sentence(True) # True means Twitter
         print sentence
-        try: # Split into generic/specific TwythonError. No contingency plan.
+        try: # Split into generic/specific TwythonError. No real err handling.
             self.api.update_status(status = sentence)
-            #self.autofail(sentence)
         except TwythonError as err:
             e = str(err)
             if 'Read timed out' in e or 'reset by peer' in e:
@@ -56,7 +48,7 @@ if __name__ == "__main__":
     n_tries = 0
     max_tries = 2
     while True:
-        avg_hours = 0.5
+        avg_hours = 1.0
         sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
         print "tweeting..."
         try:
@@ -73,5 +65,5 @@ if __name__ == "__main__":
             print "Done.",
             n_tries = 0
         print ("Next tweet approx " +
-               str(datetime.now() + timedelta(seconds=sleep_sec)))
+               str(datetime.now() + timedelta(seconds=sleep_sec)) + "\n")
         time.sleep(sleep_sec)
