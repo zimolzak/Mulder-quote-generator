@@ -24,10 +24,16 @@ class bot:
             self.api.update_status(status = sentence)
         except TwythonError as err:
             e = str(err)
-            if 'Read timed out' in e or 'reset by peer' in e:
+            if 'Read timed out' in e or 'reset by peer' or 'retries exceeded' in e:
                 # here's a new one:
                 # twython.exceptions.TwythonError:
                 # EOF occurred in violation of protocol (_ssl.c:590)
+                #
+                # twython.exceptions.TwythonError:
+                # HTTPSConnectionPool(host='api.twitter.com',
+                # port=443): Max retries exceeded with url:
+                # /1.1/statuses/update.json (Caused by <class
+                # 'socket.error'>: [Errno 110] Connection timed out)
                 raise TwythonKnownError(e)
             else:
                 raise TwythonError(e)
@@ -50,6 +56,7 @@ if __name__ == "__main__":
     while True:
         avg_hours = 1.0
         sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
+        assert sleep_sec > 50 # safety valve
         print "tweeting..."
         try:
             n_tries += 1
