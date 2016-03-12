@@ -56,6 +56,7 @@ if __name__ == "__main__":
     while True:
         avg_hours = 1.0
         sleep_sec = random.expovariate(1.0 / avg_hours) * 60 * 60
+        assert sleep_sec > 50 # safety valve
         print "tweeting..."
         try:
             n_tries += 1
