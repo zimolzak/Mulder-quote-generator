@@ -6,6 +6,7 @@ nouns = open('nouns.txt', 'r').read().splitlines()
 verbs = open('verbs.txt', 'r').read().splitlines()
 conjunctions = open('conjunctions.txt', 'r').read().splitlines()
 twitter = False
+TWITTER_MAX = 260
 
 def generate_sentence(nouns, conjunctions, verbs):
     max_clauses = 3
@@ -28,7 +29,7 @@ def generate_clean_sentence(twitter_flag):
         sentence = sentence[0].capitalize() + sentence[1:]
         if not twitter_flag:
             return sentence
-        if len(sentence) < 140:
+        if len(sentence) < TWITTER_MAX:
             return sentence
 
 if __name__ == "__main__":
