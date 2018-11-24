@@ -20,6 +20,8 @@ Usage:
     python bot.py
     python -u bot.py > log.txt &
 
+    # and then echo 123.. > pid.txt I guess, for sysadmin-webapp
+
 Example of one of the more comprehensible quotes generated: "My belief
 is revealed to be a lie, even though the existence of extraterrestrial
 life has become the truth."
